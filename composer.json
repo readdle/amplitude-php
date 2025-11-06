@@ -1,0 +1,33 @@
+{
+    "name": "readdle/amplitude-php",
+    "description": "PHP SDK for Amplitude",
+    "keywords": ["amplitude", "sdk", "analytics", "tracking"],
+    "license": "MIT",
+    "version": "1.0.0",
+    "require": {
+        "ext-curl": "*",
+        "ext-json": "*",
+        "php": "^8.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.4.1",
+        "friendsofphp/php-cs-fixer": "^3.89",
+        "phpstan/phpstan": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Readdle\\AmplitudeClient\\": "./src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Readdle\\AmplitudeClient\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "cs:check": "php-cs-fixer fix --config=php-cs-fixer.dist.php --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix --config=php-cs-fixer.dist.php",
+        "phpstan": "phpstan analyse",
+        "test": "phpunit"
+    }
+}
