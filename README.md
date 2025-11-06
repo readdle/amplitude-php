@@ -13,7 +13,7 @@ A lightweight PHP SDK for Amplitude
 Use Composer:
 
 ```bash
-composer require readdle/ps-cs-amplitude-client-php
+composer require readdle/amplitude-php
 ```
 
 ## Quick Start
