@@ -3,7 +3,7 @@
     "description": "PHP SDK for Amplitude",
     "keywords": ["amplitude", "sdk", "analytics", "tracking"],
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "require": {
         "ext-curl": "*",
         "ext-json": "*",
