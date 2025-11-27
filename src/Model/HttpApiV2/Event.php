@@ -39,6 +39,7 @@ class Event implements JsonSerializable
     protected ?float $revenue = null;
     protected ?string $productId = null;
     protected ?string $revenueType = null;
+    protected ?string $currency = null;
     protected ?float $locationLat = null;
     protected ?float $locationLng = null;
     protected ?string $ip = null;
@@ -335,6 +336,18 @@ class Event implements JsonSerializable
     public function setRevenueType(?string $revenueType): self
     {
         $this->revenueType = $revenueType;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): self
+    {
+        $this->currency = $currency;
 
         return $this;
     }
