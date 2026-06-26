@@ -6,7 +6,7 @@ namespace Readdle\AmplitudeClient\Http\Authenticator;
 
 use Readdle\AmplitudeClient\Exception\MissingCredentialException;
 
-class HeaderAuthenticator extends AbstractAuthenticator
+class HeaderAuthenticator extends AbstractAuthenticator implements HeaderAuthenticatorInterface
 {
     /**
      * @return array<string, string>
