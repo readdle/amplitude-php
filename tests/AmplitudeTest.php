@@ -7,6 +7,7 @@ use Readdle\AmplitudeClient\Amplitude;
 use Readdle\AmplitudeClient\Api\HttpApiV2;
 use Readdle\AmplitudeClient\Api\IdentifyApi;
 use Readdle\AmplitudeClient\Api\UserPrivacyApi;
+use Readdle\AmplitudeClient\Api\UserProfileApi;
 use Readdle\AmplitudeClient\Exception\AmplitudeException;
 
 final class AmplitudeTest extends TestCase
@@ -25,6 +26,7 @@ final class AmplitudeTest extends TestCase
 
         $this->assertInstanceOf(HttpApiV2::class, $amp->httpApiV2);
         $this->assertInstanceOf(IdentifyApi::class, $amp->identifyApi);
+        $this->assertInstanceOf(UserProfileApi::class, $amp->userProfileApi);
         $this->assertInstanceOf(UserPrivacyApi::class, $amp->userPrivacyApi);
     }
 
@@ -45,6 +47,26 @@ final class AmplitudeTest extends TestCase
         ]);
 
         $api = $amp->userPrivacyApi;
+
+        $refProp = new ReflectionProperty($api, 'client');
+        $refProp->setAccessible(true);
+        $client = $refProp->getValue($api);
+
+        $refClient = new ReflectionClass($client);
+        $baseUrlProp = $refClient->getProperty('baseUrl');
+        $baseUrlProp->setAccessible(true);
+
+        $this->assertSame($customUrl, $baseUrlProp->getValue($client));
+    }
+
+    public function testUserProfileBaseUrlOptionOverridesDefault(): void
+    {
+        $customUrl = 'https://profile.example.test';
+        $amp = new Amplitude('apiKey', 'secret', [
+            'userProfileApi' => ['baseUrl' => $customUrl],
+        ]);
+
+        $api = $amp->userProfileApi;
 
         $refProp = new ReflectionProperty($api, 'client');
         $refProp->setAccessible(true);

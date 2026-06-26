@@ -6,7 +6,7 @@ namespace Readdle\AmplitudeClient\Http\Authenticator;
 
 use Readdle\AmplitudeClient\Exception\MissingCredentialException;
 
-class HeaderAuthenticator extends AbstractAuthenticator implements HeaderAuthenticatorInterface
+class ApiKeyHeaderAuthenticator extends AbstractAuthenticator implements HeaderAuthenticatorInterface
 {
     /**
      * @return array<string, string>
@@ -15,18 +15,12 @@ class HeaderAuthenticator extends AbstractAuthenticator implements HeaderAuthent
      */
     public function getAuthHeader(): array
     {
-        if (empty($this->apiKey)) {
-            throw new MissingCredentialException('Missing API key');
-        }
-
         if (empty($this->apiSecret)) {
             throw new MissingCredentialException('Missing secret key');
         }
 
-        $authToken = base64_encode($this->apiKey . ':' . $this->apiSecret);
-
         return [
-            'Authorization' => 'Basic ' . $authToken,
+            'Authorization' => 'Api-Key ' . $this->apiSecret,
         ];
     }
 }

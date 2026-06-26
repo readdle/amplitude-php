@@ -9,7 +9,7 @@ use Readdle\AmplitudeClient\Exception\Http\ClientException;
 use Readdle\AmplitudeClient\Exception\Http\ServerException;
 use Readdle\AmplitudeClient\Exception\MissingCredentialException;
 use Readdle\AmplitudeClient\Http\Authenticator\AbstractAuthenticator;
-use Readdle\AmplitudeClient\Http\Authenticator\HeaderAuthenticator;
+use Readdle\AmplitudeClient\Http\Authenticator\HeaderAuthenticatorInterface;
 use Readdle\AmplitudeClient\Http\Authenticator\PostBodyAuthenticator;
 use Readdle\AmplitudeClient\Http\Response\EmptyResponse;
 use Readdle\AmplitudeClient\Http\Response\JsonResponse;
@@ -143,7 +143,7 @@ class Client
             return new JsonResponse($decoded, $statusCode);
         }
 
-        if ($decoded === null && is_string($responseBody) && strlen(trim($responseBody))) {
+        if ($decoded === null && strlen(trim($responseBody))) {
             return new StringResponse($responseBody, $statusCode);
         }
 
@@ -190,7 +190,7 @@ class Client
      */
     protected function prepareHeaders(array $headers): array
     {
-        if ($this->authenticator instanceof HeaderAuthenticator) {
+        if ($this->authenticator instanceof HeaderAuthenticatorInterface) {
             $headers = array_merge($headers, $this->authenticator->getAuthHeader());
         }
 

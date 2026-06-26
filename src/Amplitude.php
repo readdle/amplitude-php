@@ -8,12 +8,14 @@ use Readdle\AmplitudeClient\Api\AbstractApi;
 use Readdle\AmplitudeClient\Api\HttpApiV2;
 use Readdle\AmplitudeClient\Api\IdentifyApi;
 use Readdle\AmplitudeClient\Api\UserPrivacyApi;
+use Readdle\AmplitudeClient\Api\UserProfileApi;
 use Readdle\AmplitudeClient\Exception\AmplitudeException;
 use Readdle\AmplitudeClient\Http\Client;
 
 /**
  * @property HttpApiV2 $httpApiV2
  * @property IdentifyApi $identifyApi
+ * @property UserProfileApi $userProfileApi
  * @property UserPrivacyApi $userPrivacyApi
  */
 class Amplitude
@@ -29,6 +31,9 @@ class Amplitude
             'baseUrl' => null,
         ],
         'identifyApi' => [
+            'baseUrl' => null,
+        ],
+        'userProfileApi' => [
             'baseUrl' => null,
         ],
         'userPrivacyApi' => [
@@ -47,6 +52,7 @@ class Amplitude
     protected array $apiClasses = [
         'httpApiV2' => HttpApiV2::class,
         'identifyApi' => IdentifyApi::class,
+        'userProfileApi' => UserProfileApi::class,
         'userPrivacyApi' => UserPrivacyApi::class,
     ];
 
