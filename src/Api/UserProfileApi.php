@@ -38,11 +38,11 @@ class UserProfileApi extends AbstractApi
             'get_amp_props' => 'true',
         ];
 
-        if ($userId !== null && $userId !== '') {
+        if (!empty($userId)) {
             $query['user_id'] = $userId;
         }
 
-        if ($deviceId !== null && $deviceId !== '') {
+        if (!empty($deviceId)) {
             $query['device_id'] = $deviceId;
         }
 
