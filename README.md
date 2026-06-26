@@ -5,6 +5,7 @@ A lightweight PHP SDK for Amplitude
 - Supported APIs:
   - [Analytics HTTP API v2](https://amplitude.com/docs/apis/analytics/http-v2) (send events)
   - [Identify API](https://amplitude.com/docs/apis/analytics/identify) (set/update user properties)
+  - [User Profile API](https://amplitude.com/docs/apis/analytics/user-profile) (read user properties and profile data)
   - [User Privacy API](https://amplitude.com/docs/apis/analytics/user-privacy) (delete users, get deletion job statuses)
 - Requirements: PHP 8.3+, ext-curl, ext-json
 
@@ -50,6 +51,10 @@ $request = [
     // see Amplitude official docs for other fields
 ];
 $amplitude->userPrivacyApi->deleteUsers($request);
+
+// 4) User Profile API: fetch user properties
+$profile = $amplitude->userProfileApi->getUserProperties('user-123');
+print_r($profile->getBody());
 ```
 
 The example/ directory contains runnable scripts that demonstrate all API calls:
@@ -65,9 +70,10 @@ $amplitude = new Amplitude(
     'API_KEY',
     'API_SECRET',
     [
-        'httpApiV2' => [ 'baseUrl' => 'https://some.proxy.com' ],
-        'identifyApi' => [ 'baseUrl' => 'https://some.proxy2.com' ],
-        'userPrivacyApi' => [ 'baseUrl' => 'https://some.proxy3.com' ],
+        'httpApiV2' => [ 'baseUrl' => 'https://some.example.com' ],
+        'identifyApi' => [ 'baseUrl' => 'https://some.example.com' ],
+        'userProfileApi' => [ 'baseUrl' => 'https://some.example.com' ],
+        'userPrivacyApi' => [ 'baseUrl' => 'https://some.example.com' ],
     ]
 );
 ```

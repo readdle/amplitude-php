@@ -6,6 +6,7 @@ namespace Readdle\AmplitudeClient\Tests\Http;
 
 use PHPUnit\Framework\TestCase;
 use Readdle\AmplitudeClient\Exception\MissingCredentialException;
+use Readdle\AmplitudeClient\Http\Authenticator\ApiKeyHeaderAuthenticator;
 use Readdle\AmplitudeClient\Http\Authenticator\HeaderAuthenticator;
 use Readdle\AmplitudeClient\Http\Authenticator\PostBodyAuthenticator;
 use Readdle\AmplitudeClient\Http\Client;
@@ -57,6 +58,31 @@ class ClientAuthTest extends TestCase
     {
         $this->expectException(MissingCredentialException::class);
         $auth = new HeaderAuthenticator('apiKey', null);
+        $client = new Client('https://example.test', $auth);
+        $this->exposePrepareHeaders($client, []);
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function testApiKeyHeaderAuthenticatorAddsApiKeyHeader(): void
+    {
+        $auth = new ApiKeyHeaderAuthenticator('apiKey', 'secret');
+        $client = new Client('https://example.test', $auth);
+
+        $headers = $this->exposePrepareHeaders($client, ['X-Test' => '1']);
+        $this->assertArrayHasKey('Authorization', $headers);
+        $this->assertSame('1', $headers['X-Test']);
+        $this->assertSame('Api-Key secret', $headers['Authorization']);
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function testApiKeyHeaderAuthenticatorMissingSecretThrows(): void
+    {
+        $this->expectException(MissingCredentialException::class);
+        $auth = new ApiKeyHeaderAuthenticator('apiKey', null);
         $client = new Client('https://example.test', $auth);
         $this->exposePrepareHeaders($client, []);
     }
