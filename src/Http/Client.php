@@ -113,7 +113,6 @@ class Client
         $errno = curl_errno($ch);
         $error = curl_error($ch);
         $statusCode = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-        curl_close($ch);
 
         $decoded = is_string($responseBody) ? json_decode($responseBody, true) : null;
 
